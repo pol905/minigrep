@@ -18,7 +18,7 @@ impl Config {
 
         let ignore_case = env::var("IGNORE_CASE").is_ok();
 
-        Ok(Config {
+        Ok(Self {
             query,
             file_path,
             ignore_case,
@@ -70,10 +70,10 @@ mod tests {
     fn case_sensitive() {
         let query = "duct";
         let content = "\
-        Rust:
-        safe, fast, productive.
-        Pick three.
-        Duct tape.";
+Rust:
+safe, fast, productive.
+Pick three.
+Duct tape.";
 
         assert_eq!(vec!["safe, fast, productive."], search(query, content));
     }
@@ -82,10 +82,10 @@ mod tests {
     fn case_insensitive() {
         let query = "rUsT";
         let content = "\
-        Rust:
-        safe, fast, productive.
-        Pick three.
-        Trust me.";
+Rust:
+safe, fast, productive.
+Pick three.
+Trust me.";
         assert_eq!(
             vec!["Rust:", "Trust me."],
             search_case_insensitive(query, content)
